@@ -4,19 +4,20 @@ from typing import Collection
 
 logger = logging.getLogger(__name__)
 
+
 def check_urls(urls: Collection[str], timeout: int = 5) -> dict[str, str]:
     """Check the status of a list of URLs.
-    
+
     Args:
         urls (list[str]): A list of URLs to check.
         timeout (int, optional): The timeout for the HTTP request in seconds. Defaults to 5.
-    
+
     Returns:
         dict[str, str]: A dictionary mapping each URL to its status ("OK" or "ERROR").
     """
 
     logger.info(f"Starting check for {len(urls)} URLs with a timeout of {timeout} seconds.")
-    results = {}
+    results: dict[str, str] = {}
 
     for url in urls:
         status = "UNKNOWN"
@@ -27,7 +28,7 @@ def check_urls(urls: Collection[str], timeout: int = 5) -> dict[str, str]:
             if response.ok:
                 status = f"{response.status_code} OK"
             else:
-                status = f"{response.status_code} {response.reason}" 
+                status = f"{response.status_code} {response.reason}"
         except requests.exceptions.Timeout:
             status = "TIMEOUT"
             logger.warning(f"Timeout occurred while checking URL: {url}")

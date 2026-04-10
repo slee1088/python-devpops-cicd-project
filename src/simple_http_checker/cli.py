@@ -3,17 +3,27 @@ import click
 from .checker import check_urls
 
 logging.basicConfig(
-    level=logging.INFO, 
-    format='[%(asctime)s] %(levelname)-7s %(name)s: %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
+    level=logging.INFO,
+    format="[%(asctime)s] %(levelname)-7s %(name)s: %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
 )
 
 logger = logging.getLogger(__name__)
 
+
 @click.command()
-@click.argument('urls', nargs=-1)
-@click.option('--timeout', default=5, help='Timeout for HTTP requests in seconds.')
-@click.option('--verbose', "-v", is_flag=True, help='Enable verbose logging.')
+@click.argument("urls", nargs=-1)
+@click.option(
+    "--timeout",
+    default=5,
+    help="Timeout for HTTP requests in seconds.",
+)
+@click.option(
+    "--verbose",
+    "-v",
+    is_flag=True,
+    help="Enable verbose logging.",
+)
 def main(urls, timeout, verbose):
     if verbose:
         logging.getLogger().setLevel(logging.DEBUG)
@@ -35,8 +45,8 @@ def main(urls, timeout, verbose):
     click.echo("\n--- Results ---")
     for url, status in results.items():
         if "OK" in status:
-            fg_color = 'green'
+            fg_color = "green"
         else:
-            fg_color = 'red'
+            fg_color = "red"
 
         click.secho(f"{url:<40} --> {status}", fg=fg_color)
