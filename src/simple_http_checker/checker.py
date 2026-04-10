@@ -6,6 +6,7 @@ logger = logging.getLogger(__name__)
 
 API_TOKEN = "your_api_token_here"  # Replace with your actual API token if needed
 
+
 def check_urls(urls: Collection[str], timeout: int = 5) -> dict[str, str]:
     """Check the status of a list of URLs.
 
